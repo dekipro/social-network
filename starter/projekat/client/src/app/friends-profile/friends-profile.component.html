@@ -1,0 +1,52 @@
+<div class="row">
+    
+  <div class="pull-right">
+      <div class="btn-group">
+          
+          <button  class="btn btn-primary"  (click)="showAddMessageForm()">Ostavi poruku</button>
+
+      </div>
+      
+      <div *ngIf=addMessageClicked>
+      <form  class="form" (ngSubmit)="moraNesto()">
+          <input type="text" id="tekst" class="form-control" name="tekst" [(ngModel)]="newMessage.text" placeholder="..." required autofocus>
+          <button class="btn btn-primary btn-block" type="submit">dodaj</button>
+        </form>
+      </div>
+
+</div>
+
+
+<div *ngFor="let p of posts">
+    <h3>{{p.tekst}}</h3><br>
+  <button class="btn btn-primary" (click)="showCommentInputForm(p.id)">ostavite komentar</button>
+  <button *ngIf="p.commentsDTO.length!=0" class="btn btn-primary" (click)="showComments(p.id)">prikazi komentare</button>
+    <br><br>
+    <div *ngIf="addCommentClickedList[p.id]">
+        <form  class="form" (ngSubmit)="addComment(p.id)">
+            <input type="text" id="tekst" class="form-control" name="tekst" [(ngModel)]="newComment.text" placeholder="..." required autofocus>
+            <button class="btn btn-primary btn-block" type="submit">dodaj</button>
+          </form>
+        </div>
+        <div *ngIf="showCommentsList[p.id]">
+            komentari:
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let comment of p.commentsDTO">
+                  <span *ngIf="!checkUsersUsername(comment.authorDTO.loginDto.username)">  
+                   <a href = "/friends/{{p.authorDTO.id}}"> {{comment.authorDTO.loginDto.firstName}} 
+                     {{comment.authorDTO.loginDto.lastName}}</a>
+                  </span>
+                  <span *ngIf="checkUsersUsername(comment.authorDTO.loginDto.username)">  
+                    <a href = "/main"> {{comment.authorDTO.loginDto.firstName}} 
+                     {{comment.authorDTO.loginDto.lastName}}</a>
+                   </span>  
+                      :
+                     {{comment.text}}
+                 
+                </li>
+            </ul>
+            </div>
+</div>
+ 
+
+   

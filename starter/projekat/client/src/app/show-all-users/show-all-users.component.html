@@ -1,0 +1,18 @@
+  <div class="col-md-8">
+      <table class="table">
+          
+          <tr *ngFor="let user of users">
+              <td *ngIf="!isCurrentUser(user.loginDto.username)">{{user.loginDto.firstName}}</td>
+              <td *ngIf="!isCurrentUser(user.loginDto.username)">{{user.loginDto.lastName}}</td>
+              <!-- treba link dodati prema prijatelju -->
+              <td *ngIf="!isCurrentUser(user.loginDto.username)">
+                  <button class="btn btn-primary"  *ngIf="!isFriend(user) && !isFriendRequestSent(user)" (click)="sendFriendRequest(user)">Posalji zahtev za prijateljstvo</button>
+                  <button  class="btn btn-primary" *ngIf="isFriend(user)">Prijatelji</button>
+                  <button  class="btn btn-primary"  *ngIf="isFriendRequestSent(user) && !isFriend(user)">Zahtev za prijateljstvo poslan</button>
+
+              </td>
+          </tr>
+      </table>
+  </div>
+
+ 

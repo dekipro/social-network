@@ -1,0 +1,14 @@
+<div class="col-md-8">
+    <table class="table">
+        
+        <tr *ngFor="let friend of friends">
+            <td >{{friend.loginDto.firstName}}</td>
+            <td>{{friend.loginDto.lastName}}</td>
+            <td >
+                    <button class="btn btn-primary" (click)="details(friend.id)">Prikazi  profil</button>
+                    <!-- ovo promeniti da ima link na imenu -->
+            </td>
+        </tr>
+    </table>
+</div>
+
